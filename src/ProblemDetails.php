@@ -29,12 +29,12 @@ class ProblemDetails implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        return array_merge([
+        return array_filter(array_merge([
             'type' => $this->type,
             'title' => $this->title,
             'status' => $this->status,
             'detail' => $this->detail,
             'instance' => $this->instance,
-        ], $this->extensions);
+        ], $this->extensions));
     }
 }
