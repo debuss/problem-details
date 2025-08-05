@@ -31,7 +31,7 @@ readonly class ProblemDetailsMiddleware implements MiddlewareInterface
                 ->withHeader('Content-Type', 'application/problem+json');
 
             if ($this->add_instance_if_missing && empty($exception->problem_details->instance)) {
-                $exception->problem_details->instance = (string)$request->getUri();
+                $exception->problem_details->instance = $request->getUri()->getPath();
             }
 
             $json = json_encode($exception->problem_details, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
