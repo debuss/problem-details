@@ -67,7 +67,7 @@ readonly class ProblemDetailsMiddleware implements MiddlewareInterface
     {
         $status_code = $exception->problem_details->status ?? 500;
 
-        if (!is_int($status_code) || $status_code < 100 || $status_code > 599) {
+        if ($status_code < 100 || $status_code > 599) {
             $this->logger->warning('Invalid status code in problem details, forced to default 500', [
                 'status_code' => $status_code,
                 'default_status_code' => 500
