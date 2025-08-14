@@ -129,6 +129,10 @@ it('add the missing instance', function () {
         ->once()
         ->andReturn($uri);
 
+    $uri->shouldReceive('getPath')
+        ->once()
+        ->andReturn('/api/resource');
+
     $stream->shouldReceive('write')
         ->once()
         ->with(Mockery::on(function ($json) use ($problemDetails) {
@@ -138,7 +142,8 @@ it('add the missing instance', function () {
                 $decoded['title'] === $problemDetails->title &&
                 $decoded['status'] === $problemDetails->status &&
                 $decoded['detail'] === $problemDetails->detail &&
-                isset($decoded['instance']);
+                isset($decoded['instance']) &&
+                $decoded['instance'] === '/api/resource';
         }));
 
     // Process request
