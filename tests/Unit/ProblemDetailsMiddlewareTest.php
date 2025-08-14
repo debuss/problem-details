@@ -80,7 +80,7 @@ it('catches ProblemDetailsException and returns a properly formatted response', 
         }));
 
     // Process request
-    $middleware = new ProblemDetailsMiddleware($responseFactory, false);
+    $middleware = new ProblemDetailsMiddleware($responseFactory, add_instance_if_missing: false);
     $result = $middleware->process($request, $handler);
 
     expect($result)->toBe($response);
