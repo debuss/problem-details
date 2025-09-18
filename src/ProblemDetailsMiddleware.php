@@ -2,10 +2,10 @@
 
 namespace ProblemDetails;
 
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
+use Psr\Log\{LoggerInterface, NullLogger};
 use Psr\Http\Message\{ResponseFactoryInterface, ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
+use function is_string, json_encode, json_last_error, json_last_error_msg;
 
 /**
  * Middleware that catches exceptions of type ProblemDetailsException and returns a
@@ -26,8 +26,7 @@ readonly class ProblemDetailsMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            return
-                (static fn(): ResponseInterface => $handler->handle($request))();
+            return (static fn(): ResponseInterface => $handler->handle($request))();
         } catch (ProblemDetailsException $exception) {
             $this->logger->info('ProblemDetailsException caught', [
                 'exception' => $exception,

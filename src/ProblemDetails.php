@@ -3,6 +3,7 @@
 namespace ProblemDetails;
 
 use JsonSerializable;
+use function array_filter, array_merge;
 
 /**
  * Represents a Problem Details object as defined in RFC 7807.
